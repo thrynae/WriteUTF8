@@ -1,0 +1,656 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>WriteUTF8</title><meta name="generator" content="MATLAB 9.14"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2023-07-01"><meta name="DC.source" content="WriteUTF8.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>WriteUTF8</h1><!--introduction--><p><tt style="font-size:0%">Formatted documentation for the WriteUTF8 function.</tt>
+<div style="margin-top:-5em;color:grey">Write UTF-8 text file
+</div>
+</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Description</a></li><li><a href="#2">Syntax</a></li><li><a href="#3">Input arguments</a></li><li><a href="#4">Name,Value pairs</a></li><li><a href="#5">Compatibility, version info, and licence</a></li><li><a href="#6">Test suite</a></li></ul></div><h2 id="1">Description</h2><p>
+While it is fairly easy on new releases of Matlab to write UTF-8 files, older releases tend to
+have some difficulties creating such files.
+<br>This function facilitates writing text and accepts inputs encoded as text
+(char/cellstr/string), as well as in a binary format (either UTF-32 or UTF-8).
+</p><h2 id="2">Syntax</h2><pre class="language-matlab">WriteUTF8(filename,txt)
+WriteUTF8(filename,bin)
+WriteUTF8(___,options)
+WriteUTF8(___,Name,Value)
+</pre><h2 id="3">Input arguments</h2><p>
+<table border=1>
+<tr><td>
+filename
+</td><td>
+A char array with either relative or absolute path.
+</td></tr>
+<tr><td>
+txt
+</td><td>
+Either a char vector or matrix, or a cellstr. A string is converted to a cellstr internally. Any
+trailing whitespace is preserved. If a cellstr is not a vector, it will be linearized.
+<br>Any trailing zeros will be ignored when writing the file.
+</td></tr>
+<tr><td>
+bin
+</td><td>
+Either a uint32 vector/matrix, or a uint8 vector/matrix. A uint32 array will be interpreted as
+Unicode codepoints and will be converted to UTF-8 on writing. A uint8 array will be interpreted
+as UTF-8. There will be no check to confirm this is valid UTF-8.
+<br>Any trailing zeros will be ignored when writing the file.
+</td></tr>
+<tr><td>
+Name,Value
+</td><td>
+The settings below can be entered with a Name,Value syntax.
+</td></tr>
+<tr><td>
+options
+</td><td>
+Instead of the Name,Value, parameters can also be entered in a struct. Any missing field will be
+filled from the defaults listed below. Using incomplete parameter names or incorrect
+capitalization is allowed, as long as there is a unique match.
+</td></tr>
+</table>
+</p><h2 id="4">Name,Value pairs</h2><p>
+<table border=1>
+<tr><td>
+permission
+</td><td>
+The permission used by fopen to generate a file identifier. See <code>doc('fopen')</code> for all
+available options.
+<br><code>default='w';</code>
+</td></tr>
+<tr><td>
+EOL
+</td><td>
+The end-of-line definition is usually <code>char(10)</code> on Unix systems and <code>char([13
+10])</code> on Windows systems. Any char vector is allowed.
+<br><code>default=char(10);</code>
+</td></tr>
+<tr><td>
+BOM
+</td><td>
+A logical determining whether the byte order mark should be inserted. Note that this should only
+be set to <code>true</code> the first time writing to a file. Writing of the BOM is skipped if
+<code>ftell</code> returns a non-zero value.
+<br><code>default=false;</code>
+</td></tr>
+<tr><td>
+SkipFileTest
+</td><td>
+If set to <code>true</code>, this means that the validity of the filename is not checked. Since
+this check includes a write test to see if the folder is writeable, this can represent a
+substantial speedup for small text sizes.
+<br><code>default=false;</code>
+</td></tr>
+<tr><td>
+print_to_con
+</td><td>
+<i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+<br>A logical that controls whether warnings and other output will be printed to the command
+window. Errors can't be turned off.
+<br><code>default=true;</code>
+<br>Specifying <code>print_to_fid</code>, <code>print_to_obj</code>, or <code>print_to_fcn</code>
+will change the default to <code>false</code>, unless parsing of any of the other exception
+redirection options results in an error.
+</td></tr>
+<tr><td>
+print_to_fid
+</td><td>
+<i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+<br>The file identifier where console output will be printed. Errors and warnings will be printed
+including the call stack. You can provide the fid for the command window (<code>fid=1</code>) to
+print warnings as text. Errors will be printed to the specified file before the error is actually
+thrown.
+<br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+all empty, this will have the effect of suppressing every output except errors.
+<br>Array inputs are allowed.
+<br><code>default=[];</code>
+</td></tr>
+<tr><td>
+print_to_obj
+</td><td>
+<i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+<br>The handle to an object with a String property, e.g. an edit field in a GUI where console
+output will be printed. Messages with newline characters (ignoring trailing newlines) will be
+returned as a cell array. This includes warnings and errors, which will be printed without the
+call stack. Errors will be written to the object before the error is actually thrown.
+<br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+all empty, this will have the effect of suppressing every output except errors.
+<br>Array inputs are allowed.
+<br><code>default=[];</code>
+<tr><td>
+print_to_fcn
+</td><td>
+<i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+<br>A <code>struct</code> with a function handle, anonymous function or inline function in the
+<code>'h'</code> field and optionally additional data in the <code>'data'</code> field. The
+function should accept three inputs: a <code>char</code> array (either <code>'warning'</code> or
+<code>'error'</code>), a <code>struct</code> with the message, id, and stack, and the optional
+additional data. The function(s) will be run before the error is actually thrown.
+<br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+all empty, this will have the effect of suppressing every output except errors.
+<br>Array inputs are allowed.
+<br><code>default=[];</code>
+</td></tr>
+</table>
+</p><h2 id="5">Compatibility, version info, and licence</h2><p>
+Compatibility considerations:
+<ul>
+   <li>This is expected to work on all releases.</li>
+</ul>
+</p><p>
+<table>
+<tr>
+<td> Test suite result </td>
+<td style="border:2px solid black;"> Windows </td>
+<td style="border:2px solid black;"> Linux </td>
+<td style="border:2px solid black;"> MacOS </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2023a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2022b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2022a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2021b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2021a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2020b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2020a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2019b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2019a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2018a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2017b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2016b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Monterey : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2015a </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2013b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab R2007b </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Matlab 6.5 (R13) </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Octave 8.2.0 </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Octave 7.2.0 </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Octave 6.2.0 </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it>ubuntu_22.04 : Pass</it> </td>
+<td> <it>Catalina : Pass</it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Octave 5.2.0 </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it></it> </td>
+</tr>
+<tr>
+<td style="border:2px solid black;"> Octave 4.4.1 </td>
+<td> <it>W11 : Pass</it> </td>
+<td> <it></it> </td>
+<td> <it>Catalina : Pass</it> </td>
+</tr>
+</table>
+</p><pre>Version: 1.0.0
+Date:    2023-07-01
+Author:  H.J. Wisselink
+Licence: CC by-nc-sa 4.0 ( https://creativecommons.org/licenses/by-nc-sa/4.0 )
+Email = 'h_j_wisselink*alumnus_utwente_nl';
+Real_email = regexprep(Email,{'*','_'},{'@','.'})</pre><h2 id="6">Test suite</h2><p>This tester is included so you can test if your own modifications would introduce any bugs. These tests form the basis for the compatibility table above. Note that functions may be different between the tester version and the normal function. Make sure to apply any modifications to both. The full tester function (including all comments) can be found <a href="https://web.archive.org/web/20230701133223/https://cdn-153.anonfiles.com/K3FdCaz1z1/b0712346-1688218939/aaa___WriteUTF8___test.m">here</a>.</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2023a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% WriteUTF8
+%
+% <html><tt style="font-size:0%">Formatted documentation for the WriteUTF8 function.</tt>
+% <div style="margin-top:-5em;color:grey">Write UTF-8 text file
+% </div>
+% </html>
+
+%% Description
+% <html>
+% While it is fairly easy on new releases of Matlab to write UTF-8 files, older releases tend to
+% have some difficulties creating such files.
+% <br>This function facilitates writing text and accepts inputs encoded as text
+% (char/cellstr/string), as well as in a binary format (either UTF-32 or UTF-8).
+% </html>
+
+%% Syntax
+%
+%   WriteUTF8(filename,txt)
+%   WriteUTF8(filename,bin)
+%   WriteUTF8(___,options)
+%   WriteUTF8(___,Name,Value)
+
+%% Input arguments
+%
+% <html>
+% <table border=1>
+% <tr><td>
+% filename
+% </td><td>
+% A char array with either relative or absolute path.
+% </td></tr>
+% <tr><td>
+% txt
+% </td><td>
+% Either a char vector or matrix, or a cellstr. A string is converted to a cellstr internally. Any
+% trailing whitespace is preserved. If a cellstr is not a vector, it will be linearized.
+% <br>Any trailing zeros will be ignored when writing the file.
+% </td></tr>
+% <tr><td>
+% bin
+% </td><td>
+% Either a uint32 vector/matrix, or a uint8 vector/matrix. A uint32 array will be interpreted as
+% Unicode codepoints and will be converted to UTF-8 on writing. A uint8 array will be interpreted
+% as UTF-8. There will be no check to confirm this is valid UTF-8.
+% <br>Any trailing zeros will be ignored when writing the file.
+% </td></tr>
+% <tr><td>
+% Name,Value
+% </td><td>
+% The settings below can be entered with a Name,Value syntax.
+% </td></tr>
+% <tr><td>
+% options
+% </td><td>
+% Instead of the Name,Value, parameters can also be entered in a struct. Any missing field will be
+% filled from the defaults listed below. Using incomplete parameter names or incorrect
+% capitalization is allowed, as long as there is a unique match.
+% </td></tr>
+% </table>
+% </html>
+
+%% Name,Value pairs
+%
+% <html>
+% <table border=1>
+% <tr><td>
+% permission
+% </td><td>
+% The permission used by fopen to generate a file identifier. See <code>doc('fopen')</code> for all
+% available options.
+% <br><code>default='w';</code>
+% </td></tr>
+% <tr><td>
+% EOL
+% </td><td>
+% The end-of-line definition is usually <code>char(10)</code> on Unix systems and <code>char([13
+% 10])</code> on Windows systems. Any char vector is allowed.
+% <br><code>default=char(10);</code>
+% </td></tr>
+% <tr><td>
+% BOM
+% </td><td>
+% A logical determining whether the byte order mark should be inserted. Note that this should only
+% be set to <code>true</code> the first time writing to a file. Writing of the BOM is skipped if
+% <code>ftell</code> returns a non-zero value.
+% <br><code>default=false;</code>
+% </td></tr>
+% <tr><td>
+% SkipFileTest
+% </td><td>
+% If set to <code>true</code>, this means that the validity of the filename is not checked. Since
+% this check includes a write test to see if the folder is writeable, this can represent a
+% substantial speedup for small text sizes.
+% <br><code>default=false;</code>
+% </td></tr>
+% <tr><td>
+% print_to_con
+% </td><td>
+% <i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+% <br>A logical that controls whether warnings and other output will be printed to the command
+% window. Errors can't be turned off.
+% <br><code>default=true;</code>
+% <br>Specifying <code>print_to_fid</code>, <code>print_to_obj</code>, or <code>print_to_fcn</code>
+% will change the default to <code>false</code>, unless parsing of any of the other exception
+% redirection options results in an error.
+% </td></tr>
+% <tr><td>
+% print_to_fid
+% </td><td>
+% <i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+% <br>The file identifier where console output will be printed. Errors and warnings will be printed
+% including the call stack. You can provide the fid for the command window (<code>fid=1</code>) to
+% print warnings as text. Errors will be printed to the specified file before the error is actually
+% thrown.
+% <br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+% all empty, this will have the effect of suppressing every output except errors.
+% <br>Array inputs are allowed.
+% <br><code>default=[];</code>
+% </td></tr>
+% <tr><td>
+% print_to_obj
+% </td><td>
+% <i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+% <br>The handle to an object with a String property, e.g. an edit field in a GUI where console
+% output will be printed. Messages with newline characters (ignoring trailing newlines) will be
+% returned as a cell array. This includes warnings and errors, which will be printed without the
+% call stack. Errors will be written to the object before the error is actually thrown.
+% <br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+% all empty, this will have the effect of suppressing every output except errors.
+% <br>Array inputs are allowed.
+% <br><code>default=[];</code>
+% <tr><td>
+% print_to_fcn
+% </td><td>
+% <i>An attempt is made to also use this parameter for warnings or errors during input parsing.</i>
+% <br>A <code>struct</code> with a function handle, anonymous function or inline function in the
+% <code>'h'</code> field and optionally additional data in the <code>'data'</code> field. The
+% function should accept three inputs: a <code>char</code> array (either <code>'warning'</code> or
+% <code>'error'</code>), a <code>struct</code> with the message, id, and stack, and the optional
+% additional data. The function(s) will be run before the error is actually thrown.
+% <br>If <code>print_to_fid</code>, <code>print_to_obj</code>, and <code>print_to_fcn</code> are
+% all empty, this will have the effect of suppressing every output except errors.
+% <br>Array inputs are allowed.
+% <br><code>default=[];</code>
+% </td></tr>
+% </table>
+% </html>
+
+%% Compatibility, version info, and licence
+% <html>
+% Compatibility considerations:
+% <ul>
+%    <li>This is expected to work on all releases.</li>
+% </ul>
+% </html>
+% 
+% <html>
+% <table>
+% <tr>
+% <td> Test suite result </td>
+% <td style="border:2px solid black;"> Windows </td>
+% <td style="border:2px solid black;"> Linux </td>
+% <td style="border:2px solid black;"> MacOS </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2023a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2022b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2022a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2021b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2021a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2020b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2020a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2019b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2019a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2018a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2017b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2016b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Monterey : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2015a </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2013b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab R2007b </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Matlab 6.5 (R13) </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Octave 8.2.0 </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Octave 7.2.0 </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Octave 6.2.0 </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it>ubuntu_22.04 : Pass</it> </td>
+% <td> <it>Catalina : Pass</it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Octave 5.2.0 </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it></it> </td>
+% </tr>
+% <tr>
+% <td style="border:2px solid black;"> Octave 4.4.1 </td>
+% <td> <it>W11 : Pass</it> </td>
+% <td> <it></it> </td>
+% <td> <it>Catalina : Pass</it> </td>
+% </tr>
+% </table>
+% </html>
+%
+%  Version: 1.0.0
+%  Date:    2023-07-01
+%  Author:  H.J. Wisselink
+%  Licence: CC by-nc-sa 4.0 ( https://creativecommons.org/licenses/by-nc-sa/4.0 )
+%  Email = 'h_j_wisselink*alumnus_utwente_nl';
+%  Real_email = regexprep(Email,{'*','_'},{'@','.'})
+
+%% Test suite
+%
+% This tester is included so you can test if your own modifications would introduce
+% any bugs. These tests form the basis for the compatibility table above. Note that
+% functions may be different between the tester version and the normal function. Make
+% sure to apply any modifications to both. The full tester function (including all
+% comments) can be found <https://web.archive.org/web/20230701133223/https://cdn-153.anonfiles.com/K3FdCaz1z1/b0712346-1688218939/aaa___WriteUTF8___test.m here>.
+
+##### SOURCE END #####
+--></body></html>

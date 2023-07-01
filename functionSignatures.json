@@ -1,0 +1,60 @@
+{
+    "_schemaVersion": "1.0.0",
+    "_v_WriteUTF8":"1.0.0",
+    "WriteUTF8":
+    {
+        "inputs":
+        [
+            {"name":"filename", "kind":"required",
+             "type":["char"],
+             "purpose":"Target file name"},
+            {"name":"str", "kind":"required",
+             "type":[["char"],["string"],["cell"],["uint8"],["uint32"]],
+             "purpose":"contents to be written"},
+            {"mutuallyExclusiveGroup":
+             [
+                 [
+                     {"name":"OptionStruct", "kind":"positional",
+                      "type":["struct"],
+                      "purpose":"Struct containing the options"}
+                 ],
+                 [
+                     {"name":"BOM", "kind":"namevalue",
+                      "type":["logical","scalar","choices={true,false}"],
+                      "purpose":"Add the byte order mark"},
+                     {"name":"EOL", "kind":"namevalue",
+                      "type":["char"],
+                      "purpose":"End-of-line definition"},
+                     {"name":"permission", "kind":"namevalue",
+                      "type":[["char","choices={'r','w','a','r+','w+','a+','A','W'}"],["string","choices={\"r\",\"w\",\"a\",\"r+\",\"w+\",\"a+\",\"A\",\"W\"}"]],
+                      "purpose":"fopen flag"},
+                     {"name":"SkipFileTest", "kind":"namevalue",
+                      "type":["logical","scalar","choices={true,false}"],
+                      "purpose":"Skip validation of file name"},
+                     {"name":"print_to_con","kind":"namevalue",
+                      "type":["logical","scalar","choices={true,false}"],
+                      "purpose":"Exception redirection command window flag"},
+                     {"name":"print_to_fid","kind":"namevalue",
+                      "type":"double",
+                      "purpose":"Exception redirection file identifier"},
+                     {"name":"print_to_obj","kind":"namevalue",
+                      "purpose":"Exception redirection object handle"},
+                     {"name":"print_to_fcn","kind":"namevalue",
+                      "type":[["function_handle"],["inline"]],
+                      "purpose":"Exception redirection function handle"},
+                     {"name":"print_to_params","kind":"namevalue",
+                      "type":["struct","scalar"],
+                      "purpose":"Exception redirection optional parameters"},
+                     {"name":"print_to_option_ShowTraceInMessage","kind":"namevalue",
+                      "type":["logical","scalar","choices={true,false}"],
+                      "purpose":"Include function trace in message"},
+                     {"name":"print_to_option_WipeTraceForBuiltin","kind":"namevalue",
+                      "type":["logical","scalar","choices={true,false}"],
+                      "purpose":"Remove function trace from message"}
+                 ]
+             ]
+            }
+        ]
+    }
+}
+
